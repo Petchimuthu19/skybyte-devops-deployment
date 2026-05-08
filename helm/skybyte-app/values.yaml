@@ -1,0 +1,40 @@
+replicaCount: 1
+
+image:
+  repository: skybyte/app
+  tag: "a3f92bc"
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:                  
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "250m"
+    memory: "256Mi"
+
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 15
+  failureThreshold: 3
+  timeoutSeconds: 5
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  failureThreshold: 3
+  timeoutSeconds: 3
+
+# API token used by the service. Rotate quarterly.
+apiToken: ""
+
+namespace: devops-challenge
