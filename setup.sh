@@ -1,4 +1,4 @@
-bash#!/usr/bin/env bash
+#!/bin/bash
 set -euo pipefail   # ✅ Exit on error, unset vars, pipe failures
 
 # ─── Config ───────────────────────────────────────────
