@@ -36,9 +36,20 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: '1.7.0'
-
+     
+      - name: Terraform Init
+        env:
+          TF_VAR_api_token: ${{ secrets.API_TOKEN }}
+          TF_VAR_k8s_host: ${{ secrets.K8S_HOST }}
+          TF_VAR_k8_ca_cert: ${{ secrets.K8_CA_CERT }}
+          TF_VAR_k8s_token: ${{ secrets.K8S_TOKEN }}
+        run: |
+          cd terraform
+          terraform init
+     
       - name: Terraform validate
         env:
+          TF_VAR_api_token: ${{ secrets.API_TOKEN}}
           TF_VAR_k8s_host: ${{ secrets.K8S_HOST }}
           TF_VAR_k8_ca_cert: ${{ secrets.K8_CA_CERT }}
           TF_VAR_k8s_token: ${{ secrets.K8S_TOKEN }}
@@ -46,6 +57,26 @@ jobs:
           cd terraform
           terraform init -backend=false
           terraform validate
+
+      - name: Terraform Plan
+        env:
+          TF_VAR_api_token: ${{ secrets.API_TOKEN }}
+          TF_VAR_k8s_host: ${{ secrets.K8S_HOST }}
+          TF_VAR_k8_ca_cert: ${{ secrets.K8_CA_CERT }}
+          TF_VAR_k8s_token: ${{ secrets.K8S_TOKEN }}
+        run: |
+          cd terraform
+          terraform plan
+
+      - name: Terraform Apply
+        env:
+          TF_VAR_api_token: ${{ secrets.API_TOKEN }}
+          TF_VAR_k8s_host: ${{ secrets.K8S_HOST }}
+          TF_VAR_k8_ca_cert: ${{ secrets.K8_CA_CERT }}
+          TF_VAR_k8s_token: ${{ secrets.K8S_TOKEN }}
+        run: |
+          cd terraform
+          terraform apply -auto-approve
 
       - name: Build Docker image
         run: docker build -t skybyte/app:${{ github.sha }} .
