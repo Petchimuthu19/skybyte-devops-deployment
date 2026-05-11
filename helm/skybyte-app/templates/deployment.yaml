@@ -30,14 +30,14 @@ spec:
         - name: app
 
           securityContext:
-          runAsNonRoot: true
-          runAsUser: 10001
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 10001
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
 
-          capabilities:
-            drop:
-              - ALL
+            capabilities:
+              drop:
+                - ALL
 
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
