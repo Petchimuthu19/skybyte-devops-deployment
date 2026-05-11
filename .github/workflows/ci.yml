@@ -96,7 +96,15 @@ jobs:
           docker build -t petchimuthu1995/skybyte-app:${{ github.sha }} .
           docker push petchimuthu1995/skybyte-app:${{ github.sha }}
 
+      - name: Setup kubeconfig
+        run: |
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > kubeconfig
+          export KUBECONFIG=$PWD/kubeconfig
+          kubectl get nodes
+
       - name: Deploy Application
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig
         run: |
           helm upgrade --install skybyte-app helm/skybyte-app \
             --namespace devops-challenge \
