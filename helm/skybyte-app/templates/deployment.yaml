@@ -23,6 +23,20 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: app
+
+          securityContext:
+          runAsNonRoot: true
+          runAsUser: 10001
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+
+          capabilities:
+            drop:
+              - ALL
+
+          seccompProfile:
+            type: RuntimeDefault
+
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
