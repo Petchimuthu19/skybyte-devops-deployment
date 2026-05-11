@@ -21,6 +21,11 @@ spec:
         - key: "node-role.kubernetes.io/control-plane"
           operator: "Exists"
           effect: "NoSchedule"
+
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+
       containers:
         - name: app
 
@@ -33,9 +38,6 @@ spec:
           capabilities:
             drop:
               - ALL
-
-          seccompProfile:
-            type: RuntimeDefault
 
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
