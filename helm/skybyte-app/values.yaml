@@ -9,6 +9,11 @@ service:
   type: ClusterIP
   port: 80
 
+ingress:
+  enabled: true
+  className: nginx
+  host: skybyte.local
+
 resources:                  
   requests:
     cpu: "100m"
