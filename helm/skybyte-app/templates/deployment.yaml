@@ -17,6 +17,10 @@ spec:
         app.kubernetes.io/name: {{ include "skybyte-app.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
       containers:
         - name: app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
