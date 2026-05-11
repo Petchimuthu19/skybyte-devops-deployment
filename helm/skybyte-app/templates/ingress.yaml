@@ -6,8 +6,7 @@ spec:
   ingressClassName: traefik
 
   rules:
-    - host: skybyte.local
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
