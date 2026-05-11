@@ -38,10 +38,14 @@ jobs:
           terraform_version: '1.7.0'
 
       - name: Terraform validate
+        env:
+          TF_VAR_k8s_host: ${{ secrets.K8S_HOST }}
+          TF_VAR_k8_ca_cert: ${{ secrets.K8_CA_CERT }}
+          TF_VAR_k8s_token: ${{ secrets.K8S_TOKEN }}
         run: |
           cd terraform
           terraform init -backend=false
-          terraform validate 
+          terraform validate
 
       - name: Build Docker image
         run: docker build -t skybyte/app:${{ github.sha }} .

@@ -25,7 +25,7 @@ resource "kubernetes_secret" "api_token" {
   }
 
   data = {
-    token = base64encode(var.api_token)
+    token = base64decode(var.api_token)
   }
 
   type = "Opaque"
