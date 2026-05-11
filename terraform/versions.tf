@@ -9,8 +9,6 @@ terraform {
 }
 
 provider "kubernetes" {
-  host                   = trimspace(var.k8s_host)
-  cluster_ca_certificate = base64decode(trimspace(var.k8_ca_cert))
-  token                  = trimspace(var.k8s_token)
+  config_path = "${path.module}/../kubeconfig"
 }
 

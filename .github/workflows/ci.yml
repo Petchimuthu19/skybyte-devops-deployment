@@ -32,6 +32,10 @@ jobs:
       - name: Helm lint
         run: helm lint helm/skybyte-app 
 
+      - name: Setup kubeconfig
+        run: |
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > kubeconfig
+
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
         with:
