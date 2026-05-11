@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: skybyte/app
+  repository: petchimuthu1995/skybyte-app
   tag: "a3f92bc"
   pullPolicy: Always
 
